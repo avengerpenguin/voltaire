@@ -1,0 +1,23 @@
+ol#post-list {
+  list-style: none;
+  padding: 0;
+  li {
+    margin-bottom: 3em;
+  }
+}
+
+.latex sub, .latex sup {
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.latex sub {
+  font-size: 1em;
+}
+
+.latex sup {
+  font-size: 0.8em;
+  vertical-align: 0.2em;
+  margin-left: -0.42em;
+  margin-right: -0.15em;
+}

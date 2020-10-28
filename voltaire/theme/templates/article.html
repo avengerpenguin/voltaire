@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} | {{ SITENAME }}{% endblock %}
+
+{% block head %}
+    {{ super() }}
+
+    {% if article.keywords %}
+        <meta name="keywords" content="{{article.keywords}}" />
+    {% endif %}
+
+    <meta name="description" content="{{article._summary|striptags|e}}" />
+
+    {% for tag in article.ogtags %}
+        {% if tag[0] == 'og:description' %}
+            <meta property="og:description" content="{{article._summary|striptags|e}}" />
+        {% else %}
+            <meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+        {% endif %}
+    {% endfor %}
+
+    {% if article.category == 'Books' %}
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Book",
+          "description": "{ article.summary|striptags }}",
+          "name": "{{ article.title|striptags }}",
+        }
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% if GOOGLE_ADSENSE_CLIENT %}
+    {% block precontent %}
+    <aside>
+          <div>
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-7863038150136152"
+                   data-ad-slot="7277566797"
+                   data-ad-format="auto"></ins>
+              <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+          </div>
+    </aside>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+<section id="content" class="body">
+  <header>
+    <h1 class="entry-title">
+      <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+         title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h1>
+ {% import 'translations.html' as translations with context %}
+ {{ translations.translations_for(article) }}
+      <p>
+          Back to
+          <a href="{{ SITEURL }}/{{article.category.url}}">
+              {{article.category}}
+        </a>
+      </p>
+  </header>
+  <div class="entry-content">
+    {{ article.content }}
+    {% if SHOW_STATS and article.stats %}
+    <hr>
+    <h2>Article Stats</h2>
+    <p>{{ article.stats['wc'] }} words and {{ article.stats['read_mins'] }} min read</p>
+    <ul>
+        <li>Flesch-kincaid Index/ Reading Ease: {{ article.stats['fi'] }}</li>
+        <li>Flesch-kincaid Grade Level: {{ article.stats['fk'] }}</li>
+    </ul>
+    {% endif %}
+  </div><!-- /.entry-content -->
+
+    {% if DISQUS_SHORT_NAME %}
+  <hr>
+  <h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = '{{ article.url }}';  //
+this.page.identifier = '{{ article.slug }}';
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://{{ DISQUS_SHORT_NAME }}.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    {% endif %}
+</section>
+{% endblock %}
+

@@ -1,0 +1,33 @@
+
+{% extends "index.html" %}
+
+{% block title %}
+{{ category }} | {{ SITENAME }}
+{% endblock title %}
+
+{% block head %}
+{{ super() }}
+<meta name="description" content="{{ category.description|striptags|e }}">
+{% endblock %}
+
+
+{% block content_title %}
+<h1>{{ category }} </h1>
+<p>{{ category.description }}</p>
+{% endblock %}
+
+{% block precontent %}
+  <aside>
+      <div>
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-7863038150136152"
+               data-ad-slot="7277566797"
+               data-ad-format="auto"></ins>
+          <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+  </aside>
+{% endblock %}
