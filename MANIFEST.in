@@ -1,0 +1,3 @@
+include README.rst
+include logo.png
+recursive-include voltaire/theme *.html *.scss

@@ -20,6 +20,7 @@ setup(
     url="https://github.com/avengerpenguin/voltaire",
     packages=find_packages("voltaire"),
     package_dir={"": "voltaire"},
+    include_package_data=True,
     classifiers=[
         # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
