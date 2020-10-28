@@ -39,8 +39,8 @@ setup(
     project_urls={
         "Issue Tracker": "https://github.com/avengerpenguin/voltaire/issues",
     },
-    keywords=["pelican", "invoke",],
-    requires=[
+    keywords=["pelican", "invoke"],
+    install_requires=[
         "invoke",
         "pelican",
         "markdown",
