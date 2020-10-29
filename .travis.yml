@@ -3,18 +3,26 @@ python:
 - '3.6'
 - '3.7'
 - '3.8'
+cache: pip
 install:
 - pip install .
 script:
 - python setup.py test
-deploy:
-  tags: true
-  branch: main
-  skip_cleanup: true
-  provider: pypi
-  username: __token__
-  password:
-    secure: DoyEQX+z7XDT9FrBFF4gXhoR1/OAVW/ZBRlwUyyMl0uJDv+m2WJZ12RSAckegy4vkxqI2qa7xkLps6FnUAIJygUs/5yDOs79wYSikU6IzTEmdkAL6s/Ip3Whr3z2MklPFYFU68Tq5Si0S03hXpUvJJRup0Kf1O7+5FfKLXHuQAuX2E2GAJ7Nrgv7mD9thknSaqg6IgSOYTLPsGzAk0G1B9F8IjPiJ4R/eVmhk3sm5KOwwPf7AqiTPQq1uDl5RbFZ+qdOd/oJr2HjqGE4NewDYuVlO9ce7+cDiRNahUw3glufiKjfvayvsV9fhTafz3gxk/Cm/8I8h0RoNIwx65Zbpza2q+Rc+9wf8NRiJ/SwVSTnSI2m/mwXwMzEsK1Xl4hV5Mrrc/WharjB9MgotgNfGDXb//h0jtVxb0P9d+x1xqM2Mf5jhyr2oS3d4VE49oZ6uI5ycq3/D+ksRGjgEKmoerSi31wRvdrwVYEcLJ/YrVJWgD0Cq4Q6mEWp45ei6a5hp+Yilqb9tUgbwQReo42IHTOJVMdB6KMqsgwWQXzg1Lfwk+fmmvZG/WbLjh81LM51FQwBUujNuFfDJvF2sIw6MSDcWTzmTOCxIIG2TnE2yrgcUEMhjhDPYtvVUarFHhV9mXYrcrfnTZjqFuec+am+VcyetQvedO0h19j7QUq1Rqk=
-  distributions: sdist bdist_wheel
-  on:
-    condition: "$TRAVIS_PYTHON_VERSION = '3.8'"
+stages:
+  - test
+  - deploy
+jobs:
+  include:
+    - stage: deploy
+      python: 3.8
+      install: skip  # no tests, no depedencies needed
+      script: skip  # we're not running tests
+      deploy:
+        provider: pypi
+        username: __token__
+        password:
+          secure: DoyEQX+z7XDT9FrBFF4gXhoR1/OAVW/ZBRlwUyyMl0uJDv+m2WJZ12RSAckegy4vkxqI2qa7xkLps6FnUAIJygUs/5yDOs79wYSikU6IzTEmdkAL6s/Ip3Whr3z2MklPFYFU68Tq5Si0S03hXpUvJJRup0Kf1O7+5FfKLXHuQAuX2E2GAJ7Nrgv7mD9thknSaqg6IgSOYTLPsGzAk0G1B9F8IjPiJ4R/eVmhk3sm5KOwwPf7AqiTPQq1uDl5RbFZ+qdOd/oJr2HjqGE4NewDYuVlO9ce7+cDiRNahUw3glufiKjfvayvsV9fhTafz3gxk/Cm/8I8h0RoNIwx65Zbpza2q+Rc+9wf8NRiJ/SwVSTnSI2m/mwXwMzEsK1Xl4hV5Mrrc/WharjB9MgotgNfGDXb//h0jtVxb0P9d+x1xqM2Mf5jhyr2oS3d4VE49oZ6uI5ycq3/D+ksRGjgEKmoerSi31wRvdrwVYEcLJ/YrVJWgD0Cq4Q6mEWp45ei6a5hp+Yilqb9tUgbwQReo42IHTOJVMdB6KMqsgwWQXzg1Lfwk+fmmvZG/WbLjh81LM51FQwBUujNuFfDJvF2sIw6MSDcWTzmTOCxIIG2TnE2yrgcUEMhjhDPYtvVUarFHhV9mXYrcrfnTZjqFuec+am+VcyetQvedO0h19j7QUq1Rqk=
+        distributions: sdist bdist_wheel
+        on:
+          condition: "$TRAVIS_PYTHON_VERSION = '3.8'"
+          tags: true
