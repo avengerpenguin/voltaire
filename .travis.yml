@@ -12,3 +12,6 @@ deploy:
   username: __token__
   password:
     secure: Nu/S6h3jTEZw6qeQWgY/zV8oGNV0dkBkAv3mIJeRCxyUF/5hptnLpspfCmyDV8fPtOvXIBeoBmNVcEms18YH5zNSuvB8hIU74ni0OeaWD965X3Lrrf83yrriSP9H+3ZnXDzdz+yb4e9EPm5hG/CdDGyy7ITVK8yWGd8FKM9vNNCbbh7Fa/mBIYdaJyGeDuCli1mWGDzX6YonGCUHbZzqElaM7h2t4U/rIzcrl4cF+Qx4h/vqltgE3gHLhSkJwwdY7otoBu7O7/2I7/8BNqjEXuw5eL5lW0m1kU1jCNwVXRv0DGGvRbvbILF0mfps7NGDdpvd0lx78bPtcRCvbRLqt0HAQbAYf2Soj9CtGTZm3hiIIgE2eIQAtXMOuOTr2DnZltL6Tt14V0dwImPUzATgt2aMpx+i58oP0f9A8wTStw/sAuvUgxCNYOAmY1iRl9hqLP2IFsfzAnE4UiZkiPqE9i4ZiUu7OLeO+Zfh6IgBExHWAKDdg/3/l3DEmcTEiNDdvfk47E+F0hEIKBNZcPLKwNJyHsWdJkhe6SdFBo9C7CnP33tZaERZYkHvZcSHAZ2/HAuMioa3v/K+BFOdjIi7wTfdJ9HCjDqh7LCgiUlhEagzBvp4aL4RxoEyKNDjRGk1js7tetS+LTMjdZopWvKd1koA1UjZC0tNnlXVD16wDJw=
+  on:
+    branch: main
+    condition: $TRAVIS_PYTHON_VERSION = '3.8'
