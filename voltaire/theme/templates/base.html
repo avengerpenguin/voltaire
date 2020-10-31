@@ -60,7 +60,9 @@
         {% endfor %}
         {% if DISPLAY_PAGES_ON_MENU %}
           {% for p in pages %}
+            {% if p.menu %}
             <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.menu_title or p.title }}</a></li>
+            {% endif %}
           {% endfor %}
         {% else %}
           {% if DISPLAY_CATEGORIES_ON_MENU %}

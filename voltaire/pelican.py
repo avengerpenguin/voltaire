@@ -20,6 +20,7 @@ TRANSLATION_FEED_ATOM = None
 
 PLUGINS = [
     "pelican_webassets",
+    "voltaire.wikilinks",
 ]
 
 THEME = os.path.join(os.path.dirname(os.path.realpath(__file__)), "theme")

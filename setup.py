@@ -1,6 +1,6 @@
 from os import path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, "README.md")) as f:
@@ -18,8 +18,7 @@ setup(
     author="Ross Fenning",
     author_email="github@rossfenning.co.uk",
     url="https://github.com/avengerpenguin/voltaire",
-    packages=find_packages("voltaire"),
-    package_dir={"": "voltaire"},
+    packages=["voltaire"],
     include_package_data=True,
     classifiers=[
         # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -48,6 +47,7 @@ setup(
         "pelican-webassets",
         "pyScss",
         "cssmin",
+        "livereload",
     ],
     setup_requires=["pytest-runner", "setuptools_scm>=3.3.1", "pre-commit",],
 )

@@ -1,3 +1,27 @@
+body {
+    header {
+        text-align: center;
+
+        h1 {
+            a {
+                text-decoration: none;
+                &:visited {
+                    text-decoration: none;
+                }
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    nav {
+        max-width: 40rem;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
 ol#post-list {
   list-style: none;
   padding: 0;
