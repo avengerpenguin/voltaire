@@ -17,8 +17,8 @@ def add_task(t, **project_args):
     TASKS.add_task(wrapped_task, name=t.__name__)
 
 
-def site(host="localhost", port=8000):
+def site(host="localhost", port=8000, domain=None):
     add_task(tasks.build)
     add_task(tasks.livereload, host=host, port=port)
-    add_task(tasks.publish)
+    add_task(tasks.publish, domain=domain)
     return TASKS

@@ -22,12 +22,15 @@ def build(c):
 
 
 @task
-def publish(c):
+def publish(c, domain=None):
     """Build local version of site"""
     pelican_main(["-s", SETTINGS_FILE_BASE, "--output", "dist"])
     commit_message = "'Publish site on {}'".format(
         datetime.date.today().isoformat()
     )
+    if domain:
+        with open("dist/CNAME", "w") as f:
+            f.write(domain)
     c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p")
 
 
