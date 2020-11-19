@@ -32,3 +32,8 @@ THEME_STATIC_PATHS = [
 LOCAL_SCSS = os.path.join(os.getcwd(), "static", "css", "style.scss")
 if not os.path.exists(LOCAL_SCSS):
     LOCAL_SCSS = False
+
+MARKDOWN = {
+    "extension_configs": {"voltaire.mermaid": {},},
+    "output_format": "html5",
+}
