@@ -24,6 +24,9 @@ def generate_image(mermaid_code: Text) -> Text:
     # make a name
     name = tf.name + ".svg"
     # build cmd line
+    os.system(
+        "test -f node_modules/.bin/mmdc || npm install @mermaid-js/mermaid-cli"
+    )
     cmdline = ["node_modules/.bin/mmdc", "-i", tf.name, "-o", name]
     try:
         p = Popen(cmdline, stdout=PIPE, stderr=PIPE)
@@ -87,7 +90,4 @@ class MermaidExtension(Extension):
 
 
 def makeExtension(**kwargs):  # pragma: no cover
-    os.system(
-        "test -f node_modules/.bin/mmdc || npm install @mermaid-js/mermaid-cli"
-    )
     return MermaidExtension(**kwargs)

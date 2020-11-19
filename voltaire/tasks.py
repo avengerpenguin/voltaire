@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+from textwrap import dedent
 
 from invoke import task
 from pelican import main as pelican_main
@@ -31,6 +32,16 @@ def publish(c, domain=None):
     if domain:
         with open("dist/CNAME", "w") as f:
             f.write(domain)
+        with open("dist/robots.txt", "w") as f:
+            f.write(
+                dedent(
+                    f"""
+                User-agent: *
+                Disallow: /drafts/
+                Sitemap: http://{domain}/sitemap.xml
+            """
+                )
+            )
     c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p")
 
 

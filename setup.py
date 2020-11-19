@@ -49,6 +49,7 @@ setup(
         "cssmin",
         "livereload",
         "ghp-import",
+        "beautifulsoup4",
     ],
     setup_requires=["pytest-runner", "setuptools_scm>=3.3.1", "pre-commit",],
 )
