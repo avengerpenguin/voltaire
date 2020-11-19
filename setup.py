@@ -48,6 +48,7 @@ setup(
         "pyScss",
         "cssmin",
         "livereload",
+        "ghp-import",
     ],
     setup_requires=["pytest-runner", "setuptools_scm>=3.3.1", "pre-commit",],
 )

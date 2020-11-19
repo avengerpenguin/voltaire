@@ -20,4 +20,5 @@ def add_task(t, **project_args):
 def site(host="localhost", port=8000):
     add_task(tasks.build)
     add_task(tasks.livereload, host=host, port=port)
+    add_task(tasks.publish)
     return TASKS

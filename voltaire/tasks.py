@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from invoke import task
 from pelican import main as pelican_main
 from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
@@ -10,10 +12,23 @@ LOCAL_SETTINGS = get_settings_from_file(SETTINGS_FILE_BASE)
 SETTINGS.update(LOCAL_SETTINGS)
 
 
+PUBLISH_FILE_BASE = "publishconfig.py"
+
+
 @task
 def build(c):
     """Build local version of site"""
     pelican_main(["-s", SETTINGS_FILE_BASE])
+
+
+@task
+def publish(c):
+    """Build local version of site"""
+    pelican_main(["-s", SETTINGS_FILE_BASE, "--output", "dist"])
+    commit_message = "'Publish site on {}'".format(
+        datetime.date.today().isoformat()
+    )
+    c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p")
 
 
 @task
