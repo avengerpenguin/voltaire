@@ -27,7 +27,16 @@ def generate_image(mermaid_code: Text) -> Text:
     os.system(
         "test -f node_modules/.bin/mmdc || npm install @mermaid-js/mermaid-cli"
     )
-    cmdline = ["node_modules/.bin/mmdc", "-i", tf.name, "-o", name]
+    cmdline = [
+        "node_modules/.bin/mmdc",
+        "-i",
+        tf.name,
+        "-o",
+        name,
+        "-c",
+        "mermaid.json",
+    ]
+    print(cmdline)
     try:
         p = Popen(cmdline, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
