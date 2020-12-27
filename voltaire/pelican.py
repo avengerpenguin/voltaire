@@ -34,6 +34,11 @@ if not os.path.exists(LOCAL_SCSS):
     LOCAL_SCSS = False
 
 MARKDOWN = {
-    "extension_configs": {"voltaire.mermaid": {},},
+    "extension_configs": {
+        "voltaire.mermaid": {},
+        "markdown.extensions.extra": {},
+    },
     "output_format": "html5",
 }
+
+TYPOGRIFY = True

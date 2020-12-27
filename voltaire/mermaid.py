@@ -24,14 +24,9 @@ def generate_image(mermaid_code: Text) -> Text:
     tf.write(mermaid_code.encode("utf8"))
     tf.flush()
 
-    # make a name
     name = tf.name + ".svg"
-    # build cmd line
-    os.system(
-        "test -f node_modules/.bin/mmdc || npm install @mermaid-js/mermaid-cli"
-    )
     cmdline = [
-        "node_modules/.bin/mmdc",
+        "mmdc",
         "-i",
         tf.name,
         "-o",
@@ -39,7 +34,7 @@ def generate_image(mermaid_code: Text) -> Text:
         "-c",
         CONF_FILE,
     ]
-    print(cmdline)
+
     try:
         p = Popen(cmdline, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
@@ -102,4 +97,5 @@ class MermaidExtension(Extension):
 
 
 def makeExtension(**kwargs):  # pragma: no cover
+    os.system("which mmdc || npm install -g @mermaid-js/mermaid-cli")
     return MermaidExtension(**kwargs)

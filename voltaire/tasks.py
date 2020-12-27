@@ -13,7 +13,7 @@ LOCAL_SETTINGS = get_settings_from_file(SETTINGS_FILE_BASE)
 SETTINGS.update(LOCAL_SETTINGS)
 
 
-PUBLISH_FILE_BASE = "publishconfig.py"
+PUBLISH_FILE_BASE = "publishconf.py"
 
 
 @task
@@ -25,7 +25,7 @@ def build(c):
 @task
 def publish(c, domain=None):
     """Build local version of site"""
-    pelican_main(["-s", SETTINGS_FILE_BASE, "--output", "dist"])
+    pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
     commit_message = "'Publish site on {}'".format(
         datetime.date.today().isoformat()
     )

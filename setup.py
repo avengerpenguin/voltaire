@@ -50,6 +50,7 @@ setup(
         "livereload",
         "ghp-import",
         "beautifulsoup4",
+        "typogrify",
     ],
     setup_requires=["pytest-runner", "setuptools_scm>=3.3.1", "pre-commit",],
 )

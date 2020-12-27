@@ -28,7 +28,7 @@ def replace_wikilinks(text: str) -> str:
                 ),  # reduce multiple whitespace or '-' to single '-'
             ],
         )
-        return f'<a href="/{href}">{text}</a>'
+        return f'<a href="/{href}/">{text}</a>'
 
     if text:
         return re.sub(r"\[\[([^|\]]+)\|?(.*?)\]\]", repl, text)
