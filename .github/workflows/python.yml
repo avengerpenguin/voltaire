@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install . black pylama
+        pip install -U . black pylama wheel pip
     - name: Lint
       run: |
         black --check --diff voltaire
