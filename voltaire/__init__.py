@@ -7,9 +7,7 @@ TASKS = Collection("tasks")
 
 
 def add_task(t, **project_args):
-    @task(
-        name=t.name, optional=t.optional,
-    )
+    @task(name=t.name, optional=t.optional)
     def wrapped_task(c, **task_args):
         return t(c, **project_args, **task_args)
 
