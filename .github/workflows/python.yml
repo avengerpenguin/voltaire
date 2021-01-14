@@ -22,7 +22,7 @@ jobs:
         pip install .[test] black pylama
     - name: Lint
       run: |
-        black -l 79 --check --diff voltaire
+        black --check --diff voltaire
         pylama --ignore E501,W503 voltaire
     - name: Test
       run: |
