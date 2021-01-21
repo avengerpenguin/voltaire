@@ -32,6 +32,8 @@ def replace_wikilinks(text: str) -> str:
 
     if text:
         return re.sub(r"\[\[([^|\]]+)\|?(.*?)\]\]", repl, text)
+    else:
+        return text
 
 
 def content_object_init(instance: Content):

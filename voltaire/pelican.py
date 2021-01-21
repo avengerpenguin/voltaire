@@ -1,9 +1,11 @@
 import os
+from pathlib import Path
+from typing import List, Optional
 
 PATH = "content"
 PAGE_PATHS = ["."]
 ARTICLE_PATHS = ["posts"]
-STATIC_PATHS = []
+STATIC_PATHS: List[str] = []
 
 SLUGIFY_SOURCE = "basename"
 
@@ -29,9 +31,11 @@ THEME_STATIC_PATHS = [
     os.path.join(os.getcwd(), "static"),
 ]
 
-LOCAL_SCSS = os.path.join(os.getcwd(), "static", "css", "style.scss")
-if not os.path.exists(LOCAL_SCSS):
-    LOCAL_SCSS = False
+# LOCAL_SCSS: Optional[str] = os.path.join(os.getcwd(), "static", "css", "style.scss")
+LOCAL_SCSS: Optional[str] = None
+path: Path = Path.cwd() / "static" / "css" / "style.scss"
+if path.exists():
+    LOCAL_SCSS = str(path)
 
 MARKDOWN = {
     "extension_configs": {
