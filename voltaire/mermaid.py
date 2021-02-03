@@ -97,5 +97,7 @@ class MermaidExtension(Extension):
 
 
 def makeExtension(**kwargs):  # pragma: no cover
-    os.system("which mmdc || npm install -g @mermaid-js/mermaid-cli")
+    os.system(
+        "which mmdc 2>/dev/null || npm install -g @mermaid-js/mermaid-cli"
+    )
     return MermaidExtension(**kwargs)

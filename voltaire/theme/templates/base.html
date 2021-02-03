@@ -52,30 +52,30 @@
 <body>
     <header>
         <h1><a href="{{ SITEURL }}/">{{ SITENAME }} <strong>{{ SITESUBTITLE }}</strong></a></h1>
-    </header>
-    <nav>
-        <ul>
-        {% for title, link in MENUITEMS_START %}
-            <li><a href="{{ link }}">{{ title }}</a></li>
-        {% endfor %}
-        {% if DISPLAY_PAGES_ON_MENU %}
-          {% for p in pages %}
-            {% if p.menu %}
-            <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.menu_title or p.title }}</a></li>
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          {% if DISPLAY_CATEGORIES_ON_MENU %}
-            {% for cat, null in categories %}
-              <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+        <nav>
+            <ul>
+            {% for title, link in MENUITEMS_START %}
+                <li><a href="{{ link }}">{{ title }}</a></li>
             {% endfor %}
-          {% endif %}
-        {% endif %}
-        {% for title, link in MENUITEMS_END %}
-            <li><a href="{{ link }}" target="_blank">{{ title }}</a></li>
-        {% endfor %}
-        </ul>
-    </nav>
+            {% if DISPLAY_PAGES_ON_MENU %}
+              {% for p in pages %}
+                {% if p.menu %}
+                <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.menu_title or p.title }}</a></li>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {% if DISPLAY_CATEGORIES_ON_MENU %}
+                {% for cat, null in categories %}
+                  <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+            {% for title, link in MENUITEMS_END %}
+                <li><a href="{{ link }}" target="_blank">{{ title }}</a></li>
+            {% endfor %}
+            </ul>
+        </nav>
+    </header>
     {% block precontent %}
     {% endblock %}
 	<main>

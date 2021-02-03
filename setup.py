@@ -13,6 +13,7 @@ setup(
         "write_to": "voltaire/_version.py",
         "fallback_version": "0.0.0",
     },
+    description="Tools for prolific writers (or more accurately, those that want to be).",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Ross Fenning",
@@ -52,5 +53,9 @@ setup(
         "beautifulsoup4",
         "typogrify",
     ],
-    setup_requires=["pytest-runner", "setuptools_scm>=3.3.1", "pre-commit",],
+    setup_requires=[
+        "pytest-runner",
+        "setuptools_scm>=3.3.1",
+        "pre-commit",
+    ],
 )
