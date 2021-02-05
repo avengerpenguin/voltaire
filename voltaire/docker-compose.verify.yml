@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+
+  site:
+    image: nginx
+    volumes:
+      - $PWD/dist:/usr/share/nginx/html
+    hostname: ${DOMAIN}
+
+  verify:
+    image: python:latest
+    command: bash -c "pip install weblint && scrapy weblint http://${DOMAIN}/"
+    depends_on:
+      - site

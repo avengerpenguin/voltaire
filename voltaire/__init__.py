@@ -19,4 +19,6 @@ def site(host="localhost", port=8000, domain=None):
     add_task(tasks.build)
     add_task(tasks.livereload, host=host, port=port)
     add_task(tasks.publish, domain=domain)
+    add_task(tasks.stage, domain=domain)
+    add_task(tasks.verify, domain=domain)
     return TASKS

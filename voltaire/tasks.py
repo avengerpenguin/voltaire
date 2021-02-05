@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import os
 from textwrap import dedent
 
 from invoke import task
@@ -14,6 +15,9 @@ SETTINGS.update(LOCAL_SETTINGS)
 
 
 PUBLISH_FILE_BASE = "publishconf.py"
+COMPOSE_YAML = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "docker-compose.verify.yml"
+)
 
 
 @task
@@ -43,6 +47,51 @@ def publish(c, domain=None):
                 )
             )
     c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p")
+
+
+@task
+def stage(c, domain=None):
+    pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
+    if domain:
+        with open("dist/CNAME", "w") as f:
+            f.write(domain)
+        with open("dist/robots.txt", "w") as f:
+            f.write(
+                dedent(
+                    f"""
+                User-agent: *
+                Disallow: /drafts/
+                Sitemap: http://{domain}/sitemap.xml
+            """
+                )
+            )
+    c.run("docker run -v $PWD/dist:/usr/share/nginx/html -p 80:80 nginx")
+
+
+@task
+def verify(c, domain=None):
+    pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
+    if domain:
+        with open("dist/CNAME", "w") as f:
+            f.write(domain)
+        with open("dist/robots.txt", "w") as f:
+            f.write(
+                dedent(
+                    f"""
+                User-agent: *
+                Disallow: /drafts/
+                Sitemap: http://{domain}/sitemap.xml
+            """
+                )
+            )
+    try:
+        c.run(
+            f"DOMAIN={domain} docker-compose -f {COMPOSE_YAML} up --build --abort-on-container-exit --exit-code-from verify --renew-anon-volumes"
+        )
+    finally:
+        c.run(
+            f"docker-compose -f {COMPOSE_YAML} down --rmi local --remove-orphans"
+        )
 
 
 @task
