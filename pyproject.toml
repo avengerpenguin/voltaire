@@ -1,5 +1,26 @@
 [tool.black]
 line-length = 79
+include = '\.pyi?$'
+exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/(
+  (
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | .*/_version.py
+)
+'''
 
 [tool.isort]
 multi_line_output = 3
