@@ -1,6 +1,8 @@
-from . import tasks
-from invoke import Collection, Task, task
+from invoke import Collection
+from invoke import Task
+from invoke import task
 
+from . import tasks
 
 __ALL__ = ["site"]
 TASKS = Collection("tasks")

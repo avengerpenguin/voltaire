@@ -667,7 +667,6 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <http://www.gnu.org/licenses/>.
 """
 
-from __future__ import unicode_literals
 
 import json
 import os.path
@@ -682,7 +681,7 @@ except ImportError:
     from urllib.parse import urljoin
 
 
-class SearchGenerator(object):
+class SearchGenerator:
     def __init__(self, context, settings, path, theme, output_path, *null):
 
         self.output_path = output_path

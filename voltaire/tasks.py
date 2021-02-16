@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 import datetime
 import os
 from textwrap import dedent
 
 from invoke import task
 from pelican import main as pelican_main
-from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
+from pelican.settings import DEFAULT_CONFIG
+from pelican.settings import get_settings_from_file
 
 SETTINGS_FILE_BASE = "pelicanconf.py"
 SETTINGS = {}
@@ -125,7 +125,7 @@ def livereload(c, host="localhost", port=8000):
     # Watch content source files
     content_file_extensions = [".md", ".rst"]
     for extension in content_file_extensions:
-        content_blob = "{0}/**/*{1}".format(SETTINGS["PATH"], extension)
+        content_blob = "{}/**/*{}".format(SETTINGS["PATH"], extension)
         server.watch(
             content_blob,
             lambda: build(c),
@@ -133,10 +133,10 @@ def livereload(c, host="localhost", port=8000):
         )
     # Watch the theme's templates and static assets
     theme_path = SETTINGS["THEME"]
-    server.watch("{}/templates/*.html".format(theme_path), lambda: build(c))
+    server.watch(f"{theme_path}/templates/*.html", lambda: build(c))
     static_file_extensions = [".css", ".js"]
     for extension in static_file_extensions:
-        static_file = "{0}/static/**/*{1}".format(theme_path, extension)
+        static_file = f"{theme_path}/static/**/*{extension}"
         server.watch(static_file, lambda: build(c))
     # Serve output path on configured host and port
     server.serve(host=host, port=port, root=SETTINGS["OUTPUT_PATH"])
