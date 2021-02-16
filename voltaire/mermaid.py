@@ -1,11 +1,8 @@
 import os
 import re
 import tempfile
-from subprocess import PIPE
-from subprocess import Popen
-from typing import Iterable
-from typing import List
-from typing import Text
+from subprocess import PIPE, Popen
+from typing import Iterable, List
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
