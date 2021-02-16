@@ -1,6 +1,4 @@
-from invoke import Collection
-from invoke import Task
-from invoke import task
+from invoke import Collection, Task, task
 
 from . import tasks
 

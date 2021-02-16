@@ -4,8 +4,7 @@ from textwrap import dedent
 
 from invoke import task
 from pelican import main as pelican_main
-from pelican.settings import DEFAULT_CONFIG
-from pelican.settings import get_settings_from_file
+from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
 
 SETTINGS_FILE_BASE = "pelicanconf.py"
 SETTINGS = {}
