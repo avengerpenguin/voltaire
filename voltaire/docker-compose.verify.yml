@@ -10,6 +10,9 @@ services:
 
   verify:
     image: python:latest
-    command: bash -c "pip install weblint && scrapy weblint http://${DOMAIN}/"
+    build:
+      dockerfile: ${DOCKERFILE_VERIFY}
+      context: .
+    command: scrapy weblint ${WEBLINT_OPTS} http://${DOMAIN}/
     depends_on:
       - site

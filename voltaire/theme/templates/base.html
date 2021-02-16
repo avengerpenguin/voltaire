@@ -6,6 +6,23 @@
     <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if article %}
+    {% for tag in article.ogtags %}
+    <meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+    {% endfor %}
+    {% endif %}
+
+    {% if page  %}
+    {% for tag in page.ogtags %}
+    <meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+    {% endfor %}
+    {% endif %}
+
+    {% if not article and not page %}
+    <meta property="og:type" content="website" />
+    {% endif %}
+
     {% if FEED_ALL_ATOM %}
     <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
     {% endif %}

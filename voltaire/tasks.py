@@ -18,6 +18,9 @@ PUBLISH_FILE_BASE = "publishconf.py"
 COMPOSE_YAML = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "docker-compose.verify.yml"
 )
+DOCKERFILE_VERIFY = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "Dockerfile.verify"
+)
 
 
 @task
@@ -33,6 +36,7 @@ def publish(c, domain=None):
     commit_message = "'Publish site on {}'".format(
         datetime.date.today().isoformat()
     )
+    print(domain)
     if domain:
         with open("dist/CNAME", "w") as f:
             f.write(domain)
@@ -69,7 +73,10 @@ def stage(c, domain=None):
 
 
 @task
-def verify(c, domain=None):
+def verify(c, domain=None, opengraph=False, disqus=False):
+    """
+    Run checks locally on candidate site to publish.
+    """
     pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
     if domain:
         with open("dist/CNAME", "w") as f:
@@ -84,13 +91,25 @@ def verify(c, domain=None):
             """
                 )
             )
+
+    weblint_options = f"--set=OPENGRAPH={opengraph} --set=DISQUS={disqus}"
     try:
         c.run(
-            f"DOMAIN={domain} docker-compose -f {COMPOSE_YAML} up --build --abort-on-container-exit --exit-code-from verify --renew-anon-volumes"
+            f"""
+            export DOMAIN={domain}
+            export WEBLINT_OPTS='{weblint_options}'
+            export DOCKERFILE_VERIFY='{DOCKERFILE_VERIFY}'
+            docker-compose -f {COMPOSE_YAML} up --build --abort-on-container-exit --exit-code-from verify --renew-anon-volumes
+            """
         )
     finally:
         c.run(
-            f"docker-compose -f {COMPOSE_YAML} down --rmi local --remove-orphans"
+            f"""
+            export DOMAIN={domain}
+            export WEBLINT_OPTS='{weblint_options}'
+            export DOCKERFILE_VERIFY='{DOCKERFILE_VERIFY}'
+            docker-compose -f {COMPOSE_YAML} down --rmi local --remove-orphans
+            """
         )
 
 
@@ -107,7 +126,11 @@ def livereload(c, host="localhost", port=8000):
     content_file_extensions = [".md", ".rst"]
     for extension in content_file_extensions:
         content_blob = "{0}/**/*{1}".format(SETTINGS["PATH"], extension)
-        server.watch(content_blob, lambda: build(c))
+        server.watch(
+            content_blob,
+            lambda: build(c),
+            ignore=lambda f: f.endswith("cv.md"),
+        )
     # Watch the theme's templates and static assets
     theme_path = SETTINGS["THEME"]
     server.watch("{}/templates/*.html".format(theme_path), lambda: build(c))
