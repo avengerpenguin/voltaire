@@ -1,8 +1,11 @@
 import os
 import re
 import tempfile
-from subprocess import PIPE, Popen
-from typing import Iterable, List, Text
+from subprocess import PIPE
+from subprocess import Popen
+from typing import Iterable
+from typing import List
+from typing import Text
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
@@ -14,7 +17,7 @@ CONF_FILE = os.path.join(
 )
 
 
-def generate_image(mermaid_code: Text) -> Text:
+def generate_image(mermaid_code: str) -> str:
     """
     Converts Mermaid source code to SVG.
     :param mermaid_code: Mermaid input code as a string.
@@ -54,7 +57,7 @@ def generate_image(mermaid_code: Text) -> Text:
 
 
 class MermaidProcessor(Preprocessor):
-    def run(self, lines: List[Text]) -> Iterable[Text]:
+    def run(self, lines: List[str]) -> Iterable[str]:
         looking_for_mermaids = True
         mermaid_code = ""
 
