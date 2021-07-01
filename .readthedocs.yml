@@ -21,6 +21,3 @@ python:
   version: 3.8
   install:
     - requirements: docs/requirements.txt
-    # Install package using pip for the build (needed for autodoc)
-    - method: pip
-        path: .

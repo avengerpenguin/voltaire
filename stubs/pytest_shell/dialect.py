@@ -1,0 +1,6 @@
+class Dialect:
+    ...
+
+
+class BashDialect(Dialect):
+    ...
