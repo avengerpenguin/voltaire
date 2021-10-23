@@ -12,6 +12,7 @@ exclude = '''
     | \.mypy_cache
     | \.tox
     | \.venv
+    | \.direnv
     | venv
     | _build
     | buck-out
@@ -29,3 +30,9 @@ force_grid_wrap = 0
 use_parentheses = true
 ensure_newline_before_comments = true
 line_length = 79
+
+[tool.pytest.ini_options]
+addopts = "-vv --pikachu --mypy"
+testpaths = [
+    "tests",
+]

@@ -52,10 +52,14 @@ setup(
         "ghp-import",
         "beautifulsoup4",
         "typogrify",
+        "webassets",
     ],
     setup_requires=[
         "pytest-runner",
         "setuptools_scm>=3.3.1",
         "pre-commit",
     ],
+    extras_require={
+        "test": ["pytest", "pytest-shell", "pytest-pikachu", "pytest-mypy"],
+    },
 )
