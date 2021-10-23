@@ -21,7 +21,7 @@ AUTHOR_FEED_RSS = None
 TRANSLATION_FEED_ATOM = None
 
 PLUGINS = [
-    "pelican_webassets",
+    "pelican.plugins.webassets",
     "voltaire.wikilinks",
 ]
 

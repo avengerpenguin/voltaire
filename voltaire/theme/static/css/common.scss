@@ -20,6 +20,15 @@ body {
         //margin: 0 auto;
         text-align: center;
     }
+
+    main {
+        h1 {
+            margin-bottom: 0.5em;
+        }
+        ul {
+            margin-top: 0.5em;
+        }
+    }
 }
 
 ol#post-list {

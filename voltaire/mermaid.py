@@ -26,6 +26,10 @@ def generate_image(mermaid_code: str) -> str:
 
     name = tf.name + ".svg"
     cmdline = [
+        "npm",
+        "exec",
+        "--package=@mermaid-js/mermaid-cli",
+        "--",
         "mmdc",
         "-i",
         tf.name,
@@ -97,7 +101,7 @@ class MermaidExtension(Extension):
 
 
 def makeExtension(**kwargs):  # pragma: no cover
-    os.system(
-        "which mmdc 2>/dev/null || npm install -g @mermaid-js/mermaid-cli"
-    )
+    # os.system(
+    #"which mmdc 2>/dev/null || npm install -g @mermaid-js/mermaid-cli"
+    #)
     return MermaidExtension(**kwargs)
