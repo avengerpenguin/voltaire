@@ -53,7 +53,7 @@ def generate_image(mermaid_code: str) -> str:
             return svg_string
         else:
             raise RuntimeError(
-                f"Error calling mermaid: {str(err)}\nTemp files: {tf.name} and {name}"
+                f"Error calling mermaid: {str(err)}\nTemp files: {tf.name} and {name}\nCommand: {' '.join(cmdline)}"
             )
 
 

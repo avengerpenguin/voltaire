@@ -11,6 +11,8 @@ SLUGIFY_SOURCE = "basename"
 
 PAGE_URL = "{slug}/"
 PAGE_SAVE_AS = "{slug}/index.html"
+ARTICLE_URL = "{slug}/"
+ARTICLE_SAVE_AS = "{slug}/index.html"
 
 TIMEZONE = "Europe/London"
 
