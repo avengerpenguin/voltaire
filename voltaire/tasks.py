@@ -35,7 +35,7 @@ def publish(c, domain=None):
     commit_message = "'Publish site on {}'".format(
         datetime.date.today().isoformat()
     )
-    print(domain)
+
     if domain:
         with open("dist/CNAME", "w") as f:
             f.write(domain)
