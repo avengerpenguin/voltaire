@@ -1,12 +1,18 @@
 version: '3.3'
 
+networks:
+  voltaire-test:
+
 services:
 
   site:
     image: nginx
     volumes:
       - $PWD/dist:/usr/share/nginx/html
-    hostname: ${DOMAIN}
+    networks:
+      voltaire-test:
+        aliases:
+          - ${DOMAIN}
 
   verify:
     image: python:latest
@@ -16,3 +22,5 @@ services:
     command: scrapy weblint ${WEBLINT_OPTS} http://${DOMAIN}/
     depends_on:
       - site
+    networks:
+      - voltaire-test
