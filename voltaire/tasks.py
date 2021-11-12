@@ -1,5 +1,6 @@
 import datetime
 import os
+import threading
 from textwrap import dedent
 
 from invoke import task
@@ -113,29 +114,41 @@ def verify(c, domain=None, opengraph=False, disqus=False):
 
 
 @task
-def livereload(c, host="localhost", port=8000):
+def livereload(
+    c, host="localhost", port=8000, test=True, opengraph=False, disqus=False
+):
     """Automatically reload browser tab upon file modification."""
     from livereload import Server
+
+    def run_weblint():
+        c.run(
+            f"scrapy weblint --set=OPENGRAPH={opengraph} --set=DISQUS={disqus} http://{host}:{port}/ &"
+        )
+
+    def build_test():
+        build(c)
+        if test:
+            threading.Thread(target=run_weblint).start()
 
     build(c)
     server = Server()
     # Watch the base settings file
-    server.watch(SETTINGS_FILE_BASE, lambda: build(c))
+    server.watch(SETTINGS_FILE_BASE, build_test)
     # Watch content source files
     content_file_extensions = [".md", ".rst"]
     for extension in content_file_extensions:
         content_blob = "{}/**/*{}".format(SETTINGS["PATH"], extension)
         server.watch(
             content_blob,
-            lambda: build(c),
+            build_test,
             ignore=lambda f: f.endswith("cv.md"),
         )
     # Watch the theme's templates and static assets
     theme_path = SETTINGS["THEME"]
-    server.watch(f"{theme_path}/templates/*.html", lambda: build(c))
+    server.watch(f"{theme_path}/templates/*.html", build_test)
     static_file_extensions = [".css", ".js"]
     for extension in static_file_extensions:
         static_file = f"{theme_path}/static/**/*{extension}"
-        server.watch(static_file, lambda: build(c))
+        server.watch(static_file, build_test)
     # Serve output path on configured host and port
     server.serve(host=host, port=port, root=SETTINGS["OUTPUT_PATH"])
