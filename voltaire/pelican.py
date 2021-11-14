@@ -47,6 +47,7 @@ MARKDOWN = {
     "extension_configs": {
         "voltaire.mermaid": {},
         "markdown.extensions.extra": {},
+        "markdown.extensions.toc": {},
     },
     "output_format": "html5",
 }
