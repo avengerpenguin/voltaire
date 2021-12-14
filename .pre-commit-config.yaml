@@ -30,8 +30,7 @@ repos:
     rev: v0.982
     hooks:
       - id: mypy
-        additional_dependencies:
-          - "types-Markdown"
+        additional_dependencies: [types-requests, types-PyYAML, types-Flask, types-Werkzeug, types-Markdown]
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.1.0
     hooks:
