@@ -24,11 +24,13 @@ TRANSLATION_FEED_ATOM = None
 
 PLUGINS = [
     "pelican.plugins.webassets",
-    "voltaire.wikilinks",
     "pelican.plugins.sitemap",
+    "voltaire.stats",
+    "voltaire.wikilinks",
 ]
 SITEMAP = {
     "format": "xml",
+    "exclude": ["search/"],
 }
 
 THEME = os.path.join(os.path.dirname(os.path.realpath(__file__)), "theme")

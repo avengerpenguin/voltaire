@@ -46,7 +46,7 @@ def publish(c, domain=None):
                     f"""
                 User-agent: *
                 Disallow: /drafts/
-                Sitemap: http://{domain}/sitemap.xml
+                Sitemap: /sitemap.xml
             """
                 )
             )
@@ -87,7 +87,7 @@ def verify(c, domain=None, opengraph=False, disqus=False):
                     f"""
                 User-agent: *
                 Disallow: /drafts/
-                Sitemap: http://{domain}/sitemap.xml
+                Sitemap: /sitemap.xml
             """
                 )
             )
