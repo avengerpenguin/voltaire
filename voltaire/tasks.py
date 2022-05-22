@@ -50,7 +50,7 @@ def publish(c, domain=None):
             """
                 )
             )
-    c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p")
+    c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p -f")
 
 
 @task
