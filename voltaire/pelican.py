@@ -48,6 +48,7 @@ if path.exists():
 MARKDOWN = {
     "extension_configs": {
         "voltaire.mermaid": {},
+        "plantuml-markdown": {},
         "markdown.extensions.extra": {},
         "markdown.extensions.toc": {},
     },

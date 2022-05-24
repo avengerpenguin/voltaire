@@ -47,6 +47,7 @@ setup(
         "markdown",
         "pelican-webassets",
         "pelican-sitemap",
+        "plantuml-markdown",
         "pyScss",
         "cssmin",
         "livereload",
