@@ -47,6 +47,7 @@ setup(
         "markdown",
         "pelican-webassets",
         "pelican-sitemap",
+        "plantuml-markdown",
         "pyScss",
         "cssmin",
         "livereload",
@@ -54,6 +55,7 @@ setup(
         "beautifulsoup4",
         "typogrify",
         "webassets",
+        "sh",
     ],
     setup_requires=[
         "pytest-runner",
@@ -61,6 +63,13 @@ setup(
         "pre-commit",
     ],
     extras_require={
-        "test": ["pytest", "pytest-shell", "pytest-pikachu", "pytest-mypy"],
+        "test": [
+            "pytest",
+            "pytest-shell",
+            "pytest-pikachu",
+            "pytest-mypy",
+            "xmldiff",
+            "types-markdown",
+        ],
     },
 )
