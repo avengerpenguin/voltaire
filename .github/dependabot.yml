@@ -3,4 +3,5 @@ updates:
 - package-ecosystem: github-actions
   directory: /
   schedule:
-    internal: daily
+    interval: daily
+
