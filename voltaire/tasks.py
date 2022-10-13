@@ -8,10 +8,6 @@ from pelican import main as pelican_main
 from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
 
 SETTINGS_FILE_BASE = "pelicanconf.py"
-SETTINGS = {}
-SETTINGS.update(DEFAULT_CONFIG)
-LOCAL_SETTINGS = get_settings_from_file(SETTINGS_FILE_BASE)
-SETTINGS.update(LOCAL_SETTINGS)
 
 
 PUBLISH_FILE_BASE = "publishconf.py"
@@ -119,6 +115,11 @@ def livereload(
 ):
     """Automatically reload browser tab upon file modification."""
     from livereload import Server
+
+    SETTINGS = {}
+    SETTINGS.update(DEFAULT_CONFIG)
+    LOCAL_SETTINGS = get_settings_from_file(SETTINGS_FILE_BASE)
+    SETTINGS.update(LOCAL_SETTINGS)
 
     def run_weblint():
         c.run(
