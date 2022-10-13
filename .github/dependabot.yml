@@ -4,11 +4,11 @@ updates:
   directory: /
   schedule:
     interval: daily
-- package-ecosystem: pip
+- package-ecosystem: github-actions
   directory: /
   schedule:
     interval: daily
-- package-ecosystem: github-actions
+- package-ecosystem: pip
   directory: /
   schedule:
     interval: daily
