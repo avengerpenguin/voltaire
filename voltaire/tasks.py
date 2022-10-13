@@ -43,7 +43,7 @@ def publish(c, domain=None):
         with open("dist/robots.txt", "w") as f:
             f.write(
                 dedent(
-                    f"""
+                    """
                 User-agent: *
                 Disallow: /drafts/
                 Sitemap: /sitemap.xml
@@ -84,7 +84,7 @@ def verify(c, domain=None, opengraph=False, disqus=False):
         with open("dist/robots.txt", "w") as f:
             f.write(
                 dedent(
-                    f"""
+                    """
                 User-agent: *
                 Disallow: /drafts/
                 Sitemap: /sitemap.xml
