@@ -24,7 +24,7 @@ def generate_image(mermaid_code: str) -> str:
     tf.write(mermaid_code.encode("utf8"))
     tf.flush()
 
-    name = tf.name + ".svg"
+    name = f"{tf.name}.svg"
     cmdline = [
         "npm",
         "exec",

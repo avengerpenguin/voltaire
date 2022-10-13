@@ -1,10 +1,7 @@
 [tool.black]
 line-length = 79
 include = '\.pyi?$'
-exclude = '''
-# A regex preceded with ^/ will apply only to files and directories
-# in the root of the project.
-^/(
+exclude = '''^/(
   (
       \.eggs
     | \.git
@@ -20,8 +17,8 @@ exclude = '''
     | dist
   )/
   | .*/_version.py
-)
-'''
+  )
+  '''
 
 [tool.isort]
 multi_line_output = 3
@@ -35,4 +32,4 @@ line_length = 79
 addopts = "-vv --pikachu --mypy"
 testpaths = [
     "tests",
-]
+    ]
