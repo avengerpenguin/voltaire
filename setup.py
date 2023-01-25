@@ -56,6 +56,7 @@ setup(
         "typogrify",
         "webassets",
         "sh",
+        "doctrine",
     ],
     setup_requires=[
         "pytest-runner",
