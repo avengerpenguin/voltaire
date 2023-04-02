@@ -683,7 +683,6 @@ except ImportError:
 
 class SearchGenerator:
     def __init__(self, context, settings, path, theme, output_path, *null):
-
         self.output_path = output_path
         self.context = context
         self.siteurl = settings.get("SITEURL")
@@ -693,7 +692,6 @@ class SearchGenerator:
         self.json_nodes = []
 
     def create_json_node(self, page):
-
         if getattr(page, "status", "published") != "published":
             return
 
@@ -744,7 +742,6 @@ class SearchGenerator:
         self.json_nodes.append(node)
 
     def create_tpage_node(self, srclink):
-
         srcfile = open(
             os.path.join(self.output_path, self.tpages[srclink]),
             encoding="utf-8",

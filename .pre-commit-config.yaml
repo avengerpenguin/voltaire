@@ -11,7 +11,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/psf/black
-    rev: 22.12.0
+    rev: 23.1.0
     hooks:
       - id: black
         language_version: python3.10
@@ -27,7 +27,7 @@ repos:
         args: ['--line-length=79']
         language_version: python3.10
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.991
+    rev: v1.1.1
     hooks:
       - id: mypy
         additional_dependencies: [types-requests, types-PyYAML, types-Flask, types-Werkzeug, types-Markdown]
