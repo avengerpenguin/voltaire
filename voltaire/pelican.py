@@ -38,6 +38,11 @@ THEME_STATIC_PATHS = [
     os.path.join(THEME, "static"),
     os.path.join(os.getcwd(), "static"),
 ]
+WEBASSETS_CONFIG = [
+    ("SASS_LOAD_PATHS", [str(Path.cwd() / "node_modules")]),
+    ("SASS_BIN", str(Path.cwd() / "node_modules" / ".bin" / "sass")),
+    ("SASS_USE_SCSS", True),
+]
 
 # LOCAL_SCSS: Optional[str] = os.path.join(os.getcwd(), "static", "css", "style.scss")
 LOCAL_SCSS: Optional[str] = None

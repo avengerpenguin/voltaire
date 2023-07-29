@@ -48,7 +48,6 @@ setup(
         "pelican-webassets",
         "pelican-sitemap",
         "plantuml-markdown",
-        "pyScss",
         "cssmin",
         "livereload",
         "ghp-import",
@@ -67,6 +66,7 @@ setup(
         "test": [
             "pytest",
             "pytest-shell",
+            "pytest-shell-utilities",
             "pytest-pikachu",
             "pytest-mypy",
             "xmldiff",

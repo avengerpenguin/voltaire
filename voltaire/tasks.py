@@ -22,12 +22,14 @@ DOCKERFILE_VERIFY = os.path.join(
 @task
 def build(c):
     """Build local version of site"""
+    c.run("npm install --save sass")
     pelican_main(["-s", SETTINGS_FILE_BASE])
 
 
 @task
 def publish(c, domain=None):
     """Build local version of site"""
+    c.run("npm install --save sass")
     pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
     commit_message = "'Publish site on {}'".format(
         datetime.date.today().isoformat()
@@ -51,6 +53,7 @@ def publish(c, domain=None):
 
 @task
 def stage(c, domain=None):
+    c.run("npm install --save sass")
     pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
     if domain:
         with open("dist/CNAME", "w") as f:
@@ -73,6 +76,7 @@ def verify(c, domain=None, opengraph=False, disqus=False):
     """
     Run checks locally on candidate site to publish.
     """
+    c.run("npm install --save sass")
     pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
     if domain:
         with open("dist/CNAME", "w") as f:
@@ -114,6 +118,7 @@ def livereload(
     c, host="localhost", port=8000, test=True, opengraph=False, disqus=False
 ):
     """Automatically reload browser tab upon file modification."""
+    c.run("npm install --save sass")
     from livereload import Server
 
     SETTINGS = {}
