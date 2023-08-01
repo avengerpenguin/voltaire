@@ -11,7 +11,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
         language_version: python3.11
@@ -32,7 +32,7 @@ repos:
       - id: mypy
         additional_dependencies: [types-requests, types-PyYAML, types-Flask, types-Werkzeug, types-Markdown]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.8.0
+    rev: v3.10.1
     hooks:
       -   id: pyupgrade
           args: [--py36-plus]
