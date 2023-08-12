@@ -1,7 +1,3 @@
-from textwrap import dedent
-
-from xmldiff import main
-
 from voltaire import graphviz
 
 
@@ -11,40 +7,8 @@ def test_generate_image():
         A -> B;
     }
     """
-    svg = graphviz.generate_image(dot)
-    expected = dedent(
-        """\
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-        <!-- Title: g Pages: 1 -->
-        <svg width="62pt" height="116pt"
-         viewBox="0.00 0.00 62.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
-        <title>g</title>
-        <polygon fill="white" stroke="transparent" points="-4,4 -4,-112 58,-112 58,4 -4,4"/>
-        <!-- A -->
-        <g id="node1" class="node">
-        <title>A</title>
-        <ellipse fill="none" stroke="black" cx="27" cy="-90" rx="27" ry="18"/>
-        <text text-anchor="middle" x="27" y="-86.3" font-family="Times,serif" font-size="14.00">A</text>
-        </g>
-        <!-- B -->
-        <g id="node2" class="node">
-        <title>B</title>
-        <ellipse fill="none" stroke="black" cx="27" cy="-18" rx="27" ry="18"/>
-        <text text-anchor="middle" x="27" y="-14.3" font-family="Times,serif" font-size="14.00">B</text>
-        </g>
-        <!-- A&#45;&gt;B -->
-        <g id="edge1" class="edge">
-        <title>A&#45;&gt;B</title>
-        <path fill="none" stroke="black" d="M27,-71.7C27,-63.98 27,-54.71 27,-46.11"/>
-        <polygon fill="black" stroke="black" points="30.5,-46.1 27,-36.1 23.5,-46.1 30.5,-46.1"/>
-        </g>
-        </g>
-        </svg>
-    """
+    html = graphviz.generate_image(dot)
+    assert (
+        html
+        == '<img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAFMAAACbCAYAAAAeCafZAAAABmJLR0QA/wD/AP+gvaeTAAANdUlE\nQVR4nO2dbUxT1x/Hv5e2QHmUClJ5lCnCeIxu4Eocuri5bAI6wI2BiGhm4MUy5nRmmYluL7aMjLiZ\nbHEvJglEMbhAGHHEjak8zU2iJEg1E3FQJuNh4KQCtrT9/V9skiltKXD6tP/5JH1Bz+k93/vl9vTe\ne865X4GICBwWnHGxt4L/EtxMhnAzGSK2t4B/o9frMTQ0hKGhIfz111/Q6/VQq9XQ6XTw8PCAm5sb\npFIplixZguXLl0Mmk9lb8iPYxcypqSm0t7ejs7MTXV1dUCqV6OnpwfDwMPR6vcXbcXd3R0hICKKi\nohAXF4fY2FisXbsWMTExEATBintgHMEWv+YGgwG//PILvvvuO1y8eBHt7e3QaDSQyWQzJkRFRWH5\n8uUICgpCYGAgZDIZXFxc4O3tDbFYjMnJSWg0Gjx48ABjY2MYGBjAH3/8gf7+fly/fh1KpRI3btyA\nVqtFQEAAnn32WTz33HPIyMhAWFiYtXcRAM6ArEhraysVFxdTUFAQAaCVK1fSnj17qKKigvr6+pi3\nNz09Te3t7VRWVkYZGRnk6+tLgiDQ008/TR9//DHduXOHeZv/opq5mWq1mr744guKj48nAJSQkEAf\nfPABdXZ2sm5qTjQaDTU0NNDevXvJ39+fxGIxvfLKK/T9999bozl2ZqrVavrss89ILpeTu7s7bd++\nnX744QdWm180Go2Gqqur6fnnnydBECghIYGqq6vJYDCwamLxZur1evryyy9p6dKl5OPjQ4cOHaLR\n0VEW4qzGlStXKCMjgwRBoOTkZLp8+TKLzS7OzCtXrlBSUhJJJBLav3+/w5v4OFevXqWNGzeSi4sL\nFRUV0d27dxezuYWZaTAY6JNPPiGJREKpqanU1dW1GBF2xWAwUGVlJcnlcgoPD6e2traFbmr+Zo6N\njdHmzZtJIpFQaWkpyz7HroyMjNCWLVtILBZTaWnpQjYxPzNVKhXFxsZSaGgoq37GoTAYDFRWVkYi\nkYiKi4tJp9PN5+OWm9nd3U0hISEUHx9Pv//++/yVOhG1tbUklUopOzubpqenLf2YZWYODAzQE088\nQcnJyYvtpJ2G5uZm8vDwoN27d1valc1t5sTEBCUmJlJ0dDSNjIwsXqUTcfbsWZJIJHT48GFLqs9t\nZlFREfn5+VFvb++ixTkjx48fJxcXF7pw4cJcVc2b+e2335IgCPTNN98wE+eMZGdnU0hIyFxdnGkz\nNRoNrVy5kvLy8tirmwc3b94kALRu3Tq7aRgbG6OAgAA6cOCAuWqmzTx69ChJpVJSqVTs1c2D9957\njwAQAFIqlXbTcezYMXJ3dzfX3Rk3U6/XU1hYGO3bt8966ixAr9dTcHAwrVmzhgDQ/v377aZFo9FQ\nWFiYuaPTuJnnzp0jAHTjxg3rqbOAhoYGCg8Pp/b2dgJAgYGB8znvY87hw4cpMDCQtFqtsWLjZhYW\nFpJCobCuMgvYvn37zGlJQkICAaC6ujq76ent7SVBEOjcuXPGiquNjk62tLTghRdesMWtfpOMjY2h\nvr4eBQUFAIDCwkIAwIkTJ+ymKTw8HKtWrUJra6vR8llm/vnnn+jp6YFCobC6OHOcOnUKCoUCERER\nAIAdO3ZAIpHg7NmzGB4etpuulJQUXLp0yWjZLDP7+vpARIiKirK6MHOUl5fPHI0A4O/vj7S0NOh0\nOlRWVtpN1+rVq9Hb22u0zOiRCQBLly61qihzdHZ2oru7G1lZWY+8/9Dc8vJye8gC8Lcvo6OjRstm\njZtPTU0BAKRSqXVVmeHEiRNQq9Xw9PQ0Wq5UKnH58mUkJyfbWBng5eWFiYkJo2Wzjkw/Pz8AwN27\nd62rygTT09M4efIk2traQESzXiUlJQDsd3SOjo6anEkyy8yHX++RkRHrqjJBfX09/P39kZKSYrR8\nz549AICqqqqZb5EtGRkZMdkFzjIzMjIS7u7u6OjosLowY5SXl2P37t0my+Pi4pCcnIx79+6hpqbG\nhsr+5urVq4iPjzdeaOzsU6FQUHFxsbXOfY3S398/cw0OEzc2fvvtt0fq4J+rIlthMBhIJpPR559/\nbqzY+BXQoUOHKCQkZL5jIP95Ll68SADo2rVrxoqNm9nT00OCIFBDQ4N11TkZ+fn5lJSUZKrY9C24\nDRs20ObNm62jygnp7+8nqVRKX331lakqps1samoiAKYu6v/v2LVrF61YsYIePHhgqor5YYv09HSK\njY2lqakp9uqciEuXLpFIJKKTJ0+aq2beTJVKRX5+fvTmm2+yVedEqNVqioyMpBdffHGuId+5Ryer\nqqpIEAQ6ffo0O4VOgl6vp8zMTJLL5TQ4ODhXdcsmIZSUlJCbmxs1NjYuXqETUVxcTO7u7tTc3GxJ\ndcvM1Ov1lJeXR97e3nT+/PnFKXQCDAYDvfPOOyQSiai2ttbSj1k+10ir1VJOTg65ublRVVXVwlQ6\nARqNhnJzc8nV1XWuH5zHmd8sOL1eT/v27SNBEOjgwYOmBpaclt7eXkpJSSEfH5+FTCFf2GTXr7/+\nmjw9PemZZ56hW7duLWQTDseZM2fIz8+PYmNjFzp5d+HTsK9fv06JiYkklUrpww8/NHcy69Dcvn2b\n0tLSCADt3buXJicnF7qpxc1p12q1VFpaSl5eXrRq1SqqrKx0mpsjw8PDdPDgQZJKpRQTE2PJxKy5\nYLN0pb+/nwoKCkgsFlNUVBSVl5c77FWTSqWiAwcOkJeXFy1btoyOHj3Kqu9nu6iqu7ubdu3aRa6u\nriSTyaikpMQhFg9otVqqr6+n9PR0EolEJJfL6dNPP6WJiQmWzbBfoUZENDg4SB999BFFREQQAIqO\njqb333+f2tvbbdYNjI+PU11dHRUUFJBMJiNBEGjTpk1UXV1NGo3GGk1WW3UhqsFgQFtbG2pqalBb\nW4u+vj74+vpi/fr1WL9+PdauXYu4uDgEBQUtqh2dTofu7m50dXXh559/RktLCzo6OmAwGKBQKJCZ\nmYnMzEysWLGCzY4Z54xNVvU+pKurC01NTWhubkZraysGBgYAADKZDKtXr4ZcLkdoaCiWLVsGX19f\nuLm5zawzf7juXK1WY3x8HP39/RgaGoJKpcLNmzeh1WohFovx5JNPYsOGDUhNTUVqaioCAwNttXu2\nNfNxRkdHce3aNSiVSty6dQuDg4O4c+cOhoaGMD4+Do1Gg/v372N6ehpeXl6QSCTw9vaGj48PgoOD\nIZfLERISgujoaMTGxiImJgZubm722h37mmkJ1dXVeO211+DgMgH+9Bi2cDMZws1kCDeTIdxMhnAz\nGcLNZAg3kyHcTIZwMxnCzWQIN5Mh3EyGcDMZws1kCDeTIdxMhnAzGcLNZAg3kyHcTIZwMxnCzWQI\nN5Mh3EyGcDMZws1kCDeTIdxMhnAzGcLNZAg3kyEOFfs1MDCAtLQ0TE9Pz7ynVqvh6uo66/E3a9as\nQUVFha0lmsWhzAwKCoJWq4VSqZxV1tXV9cjfOTk5tpJlMQ73Nd+5cyfEYvP/Y0EQkJubayNFluNw\nZr7++utmQ+kEQcBTTz0181xNR8LhzAwNDcW6devg4mJcmkgkws6dO22syjIczkwAyM/PNxl1aDAY\n8Oqrr9pYkWU4pJmmzBKJRNi4caMtF0rNC4c009/fH5s2bYJIJJpVlp+fbwdFluGQZgJ/P7D58YVU\nLi4u2LZtm50UzY3Dmrlt2zZIJJKZv8ViMbZs2YIlS5bYUZV5HNZMb29vpKenzxiq1+uxY8cOO6sy\nj8OaCQB5eXnQ6XQA/n6g9Msvv2xnReZxaDNfeumlmSdiZ2Vl2fUJ3ZbgUNfmxvLNk5OTcf78eURG\nRqKxsdGh883tskT6P5pvbpv15ovJN/f09ERZWRneeustnm/OIt/c0gwgnm9uRXi+uZXg+eZWgueb\nWwGeb84Ynm9uBXi+OWN4vrkV4PnmjOH55ozh+eaM4fnmjHHKfHNPT89ZsV4PX1KplBISEqisrMzm\nD4l22nzzjo4OAkBbt26deW98fJyamppmwo/ffvttm2oictJ8c2NmPuSnn34iAOTh4WHz9AJL8s2N\njgE1NjZCpVLhjTfesMVNVYt5mB88OTmJe/fu2bRtV1dXFBYWoqKi4pH5o//GqJmnT5+GQqFAdHS0\nVQXOl19//RUAEBAQAH9/f5u3X1hYiOHhYVy4cMFoucPmm/+b+/fvo6WlBUVFRfDw8MDx48ftomOu\nfPNZo5OOkm9eV1c3a1AsKioKlZWVyMzMtJMqJ80337p160zY8fT0NG7fvo2cnBxkZ2cjKyvLZL9l\nbZwu3/xxxGIxIiIicOTIEeTm5qKmpgbHjh2zixZz+eazzHSEfHNzpKamAgB+/PFHu7TvVPnmc0H/\nDPNPTk7apX2nyjefi5aWFgBAUlKSXdp3qnxzY+h0OvT29uLIkSM4deoUgoODsW/fPrtocYp8cyLT\nNzoEQSBvb29KTEykd999l4aGhmyujYjnmzOF55szhOebM4LnmzOE55szguebM4LnmzOC55szhOeb\nM4DnmzOC55szguebM4LnmzOA55szgOebM4Dnmy8Snm++SHi++QLh+eY835wtluSbT0xMQKvV8nzz\n/zN4vjlLuJkM4WYyRAzgjL1F/Ef4+X9m33DLRE2ABwAAAABJRU5ErkJggg==">'
     )
-    print(svg)
-    diff = main.diff_texts(svg.encode("utf8"), expected.encode("utf8"))
-    assert diff == []

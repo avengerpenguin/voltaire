@@ -1,9 +1,10 @@
+import base64
 import re
+from subprocess import PIPE, Popen
 from typing import List
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
-from sh import dot
 
 DOT_START = re.compile(r"^```[\ \t]*dot[\ \t]*$")
 DOT_END = re.compile(r"^```[\ \t]*$")
@@ -16,7 +17,10 @@ def generate_image(dot_code: str) -> str:
     :return: SVG code as a string.
     """
 
-    return str(dot("-Tsvg", _in=dot_code))
+    p = Popen(["dot", "-Tpng"], stdout=PIPE, stdin=PIPE)
+    png_bytes = p.communicate(input=dot_code.encode("utf-8"))[0]
+    png_encoded: str = base64.encodebytes(png_bytes).decode("utf-8").strip()
+    return f'<img src="data:image/png;base64, {png_encoded}">'
 
 
 class GraphvizProcessor(Preprocessor):
