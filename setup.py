@@ -45,6 +45,7 @@ setup(
         "invoke",
         "pelican",
         "markdown",
+        "graphviz",
         "pelican-webassets",
         "pelican-sitemap",
         "plantuml-markdown",
