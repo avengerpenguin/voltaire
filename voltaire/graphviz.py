@@ -4,7 +4,6 @@ from typing import List
 import graphviz
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
-from sh import npx
 
 DOT_START = re.compile(r"^```[\ \t]*dot[\ \t]*$")
 DOT_END = re.compile(r"^```[\ \t]*$")
@@ -18,7 +17,7 @@ def generate_image(dot_code: str) -> str:
     """
     src: graphviz.Source = graphviz.Source(dot_code)
     svg: str = src.pipe(format="svg").decode("utf-8")
-    embeddable_svg = npx("-y", "svgo", "-", _in=svg)
+    embeddable_svg = re.sub("^.*<svg", "<svg", svg, flags=re.DOTALL)
     return embeddable_svg
 
 
