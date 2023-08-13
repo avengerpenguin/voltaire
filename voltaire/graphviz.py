@@ -18,7 +18,7 @@ def generate_image(dot_code: str) -> str:
     src: graphviz.Source = graphviz.Source(dot_code)
     svg: str = src.pipe(format="svg").decode("utf-8")
     embeddable_svg = re.sub("^.*<svg", "<svg", svg, flags=re.DOTALL)
-    return embeddable_svg
+    return "".join(embeddable_svg.splitlines())
 
 
 class GraphvizProcessor(Preprocessor):
