@@ -667,7 +667,6 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <http://www.gnu.org/licenses/>.
 """
 
-
 import json
 import os.path
 from codecs import open
