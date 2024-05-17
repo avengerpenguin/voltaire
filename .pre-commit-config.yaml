@@ -1,7 +1,7 @@
 exclude: '^$|venv'
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -11,15 +11,15 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/psf/black
-    rev: 24.3.0
+    rev: 24.4.2
     hooks:
       - id: black
         language_version: python3.12
-  - repo: https://github.com/humitos/mirrors-autoflake.git
-    rev: v1.1
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.3.1
     hooks:
-      - id: autoflake
-        args: [ '--in-place', '--remove-all-unused-imports', '--remove-unused-variable' ]
+    -   id: autoflake
+        args: [--remove-all-unused-imports, --in-place]
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
     hooks:
@@ -27,7 +27,7 @@ repos:
         args: ['--line-length=79']
         language_version: python3.12
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
       - id: mypy
         additional_dependencies: [types-requests, types-PyYAML, types-Flask, types-Werkzeug, types-Markdown]
