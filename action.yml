@@ -1,5 +1,5 @@
-name: 'Voltaire Build and Publish'
-description: 'Build static sites using Voltaire and publish to Github pages'
+name: "Voltaire Build and Publish"
+description: "Build static sites using Voltaire and publish to Github pages"
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"

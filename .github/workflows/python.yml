@@ -4,11 +4,10 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ 3.8, 3.9, "3.10", 3.11, 3.12 ]
+        python-version: [3.8, 3.9, "3.10", 3.11, 3.12]
 
     permissions:
       contents: read
@@ -17,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
       - name: Install graphviz
         run: sudo apt-get install -y graphviz
       - name: Set up Python ${{ matrix.python-version }}
