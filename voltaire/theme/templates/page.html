@@ -1,40 +1,27 @@
-{% extends "base.html" %}
-
-{% block title %}{{ page.title | striptags }} | {{ SITENAME }}{% endblock %}
-
-{% block head %}
-  {{ super() }}
-  {% if page.keywords %}
-    <meta name="keywords" content="{{page.keywords}}" />
-  {% endif %}
-
-  <meta name="description" content="{{page.summary|striptags|e}}" />
-
-{% endblock %}
-
-{% block content %}
-    <h1>{{ page.title }}</h1>
-    {% import 'translations.html' as translations with context %}
-    {{ translations.translations_for(page) }}
-
-    {{ page.content }}
-
-
-{% if DISQUS_SITE %}
-<div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
-      this.page.url = '{{ SITEURL }}/{{ page.url }}';
-      this.page.identifier = '{{ page.slug }}';
-    };
-
-    (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://{{ DISQUS_SITE }}.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
+{% extends "base.html" %} {% block title %}{{ page.title | striptags }} | {{
+SITENAME }}{% endblock %} {% block head %} {{ super() }} {% if page.keywords %}
+<meta name="keywords" content="{{page.keywords}}" />
 {% endif %}
 
-{% endblock %}
+<meta name="description" content="{{page.summary|striptags|e}}" />
+
+{% endblock %} {% block content %}
+<h1>{{ page.title }}</h1>
+{% import 'translations.html' as translations with context %} {{
+translations.translations_for(page) }} {{ page.content }} {% if DISQUS_SITE %}
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function () {
+    this.page.url = "{{ SITEURL }}/{{ page.url }}";
+    this.page.identifier = "{{ page.slug }}";
+  };
+
+  (function () {
+    var d = document,
+      s = d.createElement("script");
+    s.src = "https://{{ DISQUS_SITE }}.disqus.com/embed.js";
+    s.setAttribute("data-timestamp", +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+{% endif %} {% endblock %}
