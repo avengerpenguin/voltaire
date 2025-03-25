@@ -10,7 +10,7 @@ MarkupSafe==3.0.2
 packaging==24.2
 Pygments==2.19.1
 pyparsing==3.2.2
-pytz==2025.1
+pytz==2025.2
 requests==2.32.3
 snowballstemmer==2.2.0
 Sphinx==8.2.3
