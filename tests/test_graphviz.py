@@ -13,8 +13,7 @@ def test_generate_image():
     """
     svg = graphviz.generate_image(dot)
     assert "DOCTYPE" not in svg
-    expected = dedent(
-        """\
+    expected = dedent("""\
         <svg width="62pt" height="116pt" viewBox="0.00 0.00 62.00 116.00"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -41,8 +40,7 @@ def test_generate_image():
                 </g>
             </g>
         </svg>
-    """
-    )
+    """)
     print(svg)
     diff = main.diff_texts(svg.encode("utf8"), expected.encode("utf8"))
     assert diff == []
