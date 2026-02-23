@@ -1,7 +1,7 @@
 exclude: "^$|venv|.obsidian"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -10,36 +10,36 @@ repos:
       - id: check-added-large-files
       - id: check-yaml
       - id: debug-statements
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 26.1.0
     hooks:
       - id: black
         language_version: python3.12
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.3.1
+    rev: v2.3.3
     hooks:
       - id: autoflake
         args: [--remove-all-unused-imports, --in-place]
   - repo: https://github.com/PyCQA/isort
-    rev: 6.0.1
+    rev: 8.0.0
     hooks:
       - id: isort
         args: ["--profile", "black", "--filter-files", "--line-length=79"]
         language_version: python3.12
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
+    rev: v1.19.1
     hooks:
       - id: mypy
         additional_dependencies: [types-requests, types-PyYAML, types-Flask, types-Werkzeug,
           types-Markdown]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
+    rev: v3.21.2
     hooks:
       - id: pyupgrade
         args:
           - --py38-plus
   - repo: https://github.com/andreoliwa/nitpick
-    rev: v0.35.0
+    rev: v0.38.1
     hooks:
       - id: nitpick
   - repo: https://github.com/pre-commit/pygrep-hooks
