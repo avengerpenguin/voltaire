@@ -39,15 +39,11 @@ def publish(c, domain=None):
         with open("dist/CNAME", "w") as f:
             f.write(domain)
         with open("dist/robots.txt", "w") as f:
-            f.write(
-                dedent(
-                    """
+            f.write(dedent("""
                 User-agent: *
                 Disallow: /drafts/
                 Sitemap: /sitemap.xml
-            """
-                )
-            )
+            """))
     c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p -f")
 
 
@@ -59,15 +55,11 @@ def stage(c, domain=None):
         with open("dist/CNAME", "w") as f:
             f.write(domain)
         with open("dist/robots.txt", "w") as f:
-            f.write(
-                dedent(
-                    f"""
+            f.write(dedent(f"""
                 User-agent: *
                 Disallow: /drafts/
                 Sitemap: http://{domain}/sitemap.xml
-            """
-                )
-            )
+            """))
     c.run("docker run -v $PWD/dist:/usr/share/nginx/html -p 80:80 nginx")
 
 
@@ -82,35 +74,27 @@ def verify(c, domain=None, opengraph=False, disqus=False):
         with open("dist/CNAME", "w") as f:
             f.write(domain)
         with open("dist/robots.txt", "w") as f:
-            f.write(
-                dedent(
-                    """
+            f.write(dedent("""
                 User-agent: *
                 Disallow: /drafts/
                 Sitemap: /sitemap.xml
-            """
-                )
-            )
+            """))
 
     weblint_options = f"--set=OPENGRAPH={opengraph} --set=DISQUS={disqus}"
     try:
-        c.run(
-            f"""
+        c.run(f"""
             export DOMAIN={domain}
             export WEBLINT_OPTS='{weblint_options}'
             export DOCKERFILE_VERIFY='{DOCKERFILE_VERIFY}'
             docker-compose -f {COMPOSE_YAML} up --build --abort-on-container-exit --exit-code-from verify --renew-anon-volumes
-            """
-        )
+            """)
     finally:
-        c.run(
-            f"""
+        c.run(f"""
             export DOMAIN={domain}
             export WEBLINT_OPTS='{weblint_options}'
             export DOCKERFILE_VERIFY='{DOCKERFILE_VERIFY}'
             docker-compose -f {COMPOSE_YAML} down --rmi local --remove-orphans
-            """
-        )
+            """)
 
 
 @task
