@@ -7,20 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% if article %}
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
-    <meta property="og:title" content="{{ article.title | replace("\"", "&quot;") }}" />
-    <meta property="og:description" content="{{ article.content | striptags | replace("\"", "&quot;") | truncate(196, False, '...') }}" />
+      {% set metadata_title = article.title %}
+      {% set metadata_description = article.summary or article.content %}
+      {% set metadata_type = "article" %}
+      {% set canonical_path = article.url %}
     {% elif page %}
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ SITEURL }}/{{ page.url }}" />
-    <meta property="og:title" content="{{ SITENAME }} - {{ page.title | replace("\"", "&quot;") }}" />
-    <meta property="og:description" content="{{ page.content | striptags | replace("\"", "&quot;") | truncate(196, False, '...') }}" />
+      {% set metadata_title = page.title %}
+      {% set metadata_description = page.summary or page.content %}
+      {% set metadata_type = "website" %}
+      {% set canonical_path = page.url %}
     {% else %}
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ SITEURL }}/{{ output_file }}" />
-    <meta property="og:title" content="{{ SITENAME }}" />
-    <meta property="og:description" content="A page on Liz Denys's personal site" />
+      {% set metadata_title = SITENAME %}
+      {% set metadata_description = SITE_DESCRIPTION or SITENAME %}
+      {% set metadata_type = "website" %}
+      {% set output_path = output_file | default("") %}
+      {% if output_path == "index.html" %}
+        {% set canonical_path = "" %}
+      {% elif output_path.endswith("/index.html") %}
+        {% set canonical_path = output_path[:-10] %}
+      {% else %}
+        {% set canonical_path = output_path %}
+      {% endif %}
+    {% endif %}
+
+    <meta name="description" content="{{ metadata_description | striptags | e }}" />
+    {% if SITEURL %}
+    <link rel="canonical" href="{{ SITEURL.rstrip('/') }}/{{ canonical_path.lstrip('/') }}" />
+    <meta property="og:url" content="{{ SITEURL.rstrip('/') }}/{{ canonical_path.lstrip('/') }}" />
+    {% endif %}
+    <meta property="og:type" content="{{ metadata_type }}" />
+    <meta property="og:title" content="{{ metadata_title | striptags | e }}" />
+    <meta property="og:description" content="{{ metadata_description | striptags | e | truncate(196, False, '...') }}" />
+    {% if OPEN_GRAPH_IMAGE %}
+      {% if OPEN_GRAPH_IMAGE.startswith("http://") or OPEN_GRAPH_IMAGE.startswith("https://") %}
+    <meta property="og:image" content="{{ OPEN_GRAPH_IMAGE }}" />
+      {% elif SITEURL %}
+    <meta property="og:image" content="{{ SITEURL.rstrip('/') }}/{{ OPEN_GRAPH_IMAGE.lstrip('/') }}" />
+      {% endif %}
     {% endif %}
 
     {% if FEED_ALL_ATOM %}

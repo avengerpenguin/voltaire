@@ -16,6 +16,12 @@ ARTICLE_SAVE_AS = "{slug}/index.html"
 
 TIMEZONE = "Europe/London"
 
+# Shared metadata defaults. Sites can set these to provide a concise fallback
+# description and a default social-sharing image. OPEN_GRAPH_IMAGE may be an
+# absolute URL, a root-relative path, or a path relative to SITEURL.
+SITE_DESCRIPTION: Optional[str] = None
+OPEN_GRAPH_IMAGE: Optional[str] = None
+
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
