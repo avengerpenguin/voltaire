@@ -694,9 +694,7 @@ class SearchGenerator:
         if getattr(page, "status", "published") != "published":
             return
 
-        soup_title = BeautifulSoup(
-            page.title.replace("&nbsp;", " "), "html.parser"
-        )
+        soup_title = BeautifulSoup(page.title.replace("&nbsp;", " "), "html.parser")
         page_title = (
             soup_title.get_text(" ", strip=True)
             .replace("“", '"')
@@ -717,17 +715,13 @@ class SearchGenerator:
         page_text = " ".join(page_text.split())
 
         page_category = (
-            page.category.name
-            if getattr(page, "category", "None") != "None"
-            else ""
+            page.category.name if getattr(page, "category", "None") != "None" else ""
         )
 
         page_url = "."
         if page.url:
             page_url = (
-                page.url
-                if self.relative_urls
-                else (self.siteurl + "/" + page.url)
+                page.url if self.relative_urls else (self.siteurl + "/" + page.url)
             )
 
         node = {

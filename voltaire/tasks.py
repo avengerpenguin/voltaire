@@ -31,9 +31,7 @@ def publish(c, domain=None):
     """Build local version of site"""
     c.run("npm install --save sass")
     pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
-    commit_message = "'Publish site on {}'".format(
-        datetime.date.today().isoformat()
-    )
+    commit_message = "'Publish site on {}'".format(datetime.date.today().isoformat())
 
     if domain:
         with open("dist/CNAME", "w") as f:
@@ -48,7 +46,7 @@ def publish(c, domain=None):
             """
                 )
             )
-    c.run("ghp-import -b gh-pages " f"-m {commit_message} " "dist -p -f")
+    c.run(f"ghp-import -b gh-pages -m {commit_message} dist -p -f")
 
 
 @task

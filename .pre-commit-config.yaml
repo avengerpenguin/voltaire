@@ -1,7 +1,7 @@
-exclude: "^$|venv|.obsidian"
+exclude: '^$|venv|.direnv|.obsidian'
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -10,38 +10,18 @@ repos:
       - id: check-added-large-files
       - id: check-yaml
       - id: debug-statements
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
     hooks:
-      - id: black
-        language_version: python3.12
-  - repo: https://github.com/PyCQA/autoflake
-    rev: v2.3.1
-    hooks:
-      - id: autoflake
-        args: [--remove-all-unused-imports, --in-place]
-  - repo: https://github.com/PyCQA/isort
-    rev: 6.0.1
-    hooks:
-      - id: isort
-        args: ["--profile", "black", "--filter-files", "--line-length=79"]
-        language_version: python3.12
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
-    hooks:
-      - id: mypy
-        additional_dependencies: [types-requests, types-PyYAML, types-Flask, types-Werkzeug,
-          types-Markdown]
+      - id: ruff-check
+        types_or: [ python, pyi, jupyter, pyproject ]
+        args: [ --fix ]
+      - id: ruff-format
+        types_or: [ python, pyi, jupyter ]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
+    rev: v3.17.0
     hooks:
       - id: pyupgrade
-        args:
-          - --py38-plus
-  - repo: https://github.com/andreoliwa/nitpick
-    rev: v0.35.0
-    hooks:
-      - id: nitpick
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
@@ -51,4 +31,4 @@ repos:
       - id: python-no-log-warn
       - id: rst-backticks
 default_language_version:
-  python: python3.11
+  python: python3.14

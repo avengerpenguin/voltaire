@@ -9,9 +9,7 @@ from markdown.preprocessors import Preprocessor
 
 MERMAID_START = re.compile(r"^```[\ \t]*[Mm]ermaid[\ \t]*$")
 MERMAID_END = re.compile(r"^```[\ \t]*$")
-CONF_FILE = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "mermaid.json"
-)
+CONF_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "mermaid.json")
 
 
 def generate_image(mermaid_code: str) -> str:
