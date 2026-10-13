@@ -54,9 +54,7 @@ def test_single_page(shell, tmpdir):
 
     page = BeautifulSoup(page_html, "html.parser")
     assert (
-        page.select_one('meta[name="description"]')["content"].replace(
-            "\xa0", " "
-        )
+        page.select_one('meta[name="description"]')["content"].replace("\xa0", " ")
         == "A concise page summary."
     )
     assert page.select('meta[name="description"]') == [
@@ -112,8 +110,9 @@ def test_shared_seo_metadata(shell, tmpdir):
             document.select_one('link[rel="canonical"]')["href"]
             == metadata["canonical"]
         )
-        assert document.select_one('meta[property="og:url"]')["content"] == (
-            metadata["canonical"]
+        assert (
+            document.select_one('meta[property="og:url"]')["content"]
+            == (metadata["canonical"])
         )
         assert (
             document.select_one('meta[name="description"]')["content"].replace(
@@ -122,13 +121,14 @@ def test_shared_seo_metadata(shell, tmpdir):
             == metadata["description"]
         )
         assert (
-            document.select_one('meta[property="og:description"]')[
-                "content"
-            ].replace("\xa0", " ")
+            document.select_one('meta[property="og:description"]')["content"].replace(
+                "\xa0", " "
+            )
             == metadata["description"]
         )
-        assert document.select_one('meta[property="og:type"]')["content"] == (
-            metadata["og_type"]
+        assert (
+            document.select_one('meta[property="og:type"]')["content"]
+            == (metadata["og_type"])
         )
         assert document.select_one('meta[property="og:image"]')["content"] == (
             "https://example.com/images/social.jpg"
@@ -136,11 +136,7 @@ def test_shared_seo_metadata(shell, tmpdir):
         assert len(document.select('meta[name="description"]')) == 1
         assert len(document.select('meta[property="og:description"]')) == 1
 
-    search_html = shell.run(
-        "cat", "output/search/index.html", cwd=tmpdir
-    ).stdout
+    search_html = shell.run("cat", "output/search/index.html", cwd=tmpdir).stdout
     search = BeautifulSoup(search_html, "html.parser")
     assert search.title.string == "Search | Example Site"
-    assert search.select_one('meta[name="robots"]')["content"] == (
-        "noindex, follow"
-    )
+    assert search.select_one('meta[name="robots"]')["content"] == ("noindex, follow")
