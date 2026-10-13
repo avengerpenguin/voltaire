@@ -108,18 +108,25 @@ def test_shared_seo_metadata(shell, tmpdir):
         html = shell.run("cat", path, cwd=tmpdir).stdout
         document = BeautifulSoup(html, "html.parser")
 
-        assert document.select_one('link[rel="canonical"]')["href"] == metadata[
-            "canonical"
-        ]
+        assert (
+            document.select_one('link[rel="canonical"]')["href"]
+            == metadata["canonical"]
+        )
         assert document.select_one('meta[property="og:url"]')["content"] == (
             metadata["canonical"]
         )
-        assert document.select_one('meta[name="description"]')[
-            "content"
-        ].replace("\xa0", " ") == metadata["description"]
-        assert document.select_one('meta[property="og:description"]')[
-            "content"
-        ].replace("\xa0", " ") == metadata["description"]
+        assert (
+            document.select_one('meta[name="description"]')["content"].replace(
+                "\xa0", " "
+            )
+            == metadata["description"]
+        )
+        assert (
+            document.select_one('meta[property="og:description"]')[
+                "content"
+            ].replace("\xa0", " ")
+            == metadata["description"]
+        )
         assert document.select_one('meta[property="og:type"]')["content"] == (
             metadata["og_type"]
         )
