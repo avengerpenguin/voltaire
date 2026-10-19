@@ -1,11 +1,10 @@
 import os
 from pathlib import Path
-from typing import List, Optional
 
 PATH = "content"
 PAGE_PATHS = ["."]
 ARTICLE_PATHS = ["posts"]
-STATIC_PATHS: List[str] = []
+STATIC_PATHS: list[str] = []
 
 SLUGIFY_SOURCE = "basename"
 
@@ -19,8 +18,8 @@ TIMEZONE = "Europe/London"
 # Shared metadata defaults. Sites can set these to provide a concise fallback
 # description and a default social-sharing image. OPEN_GRAPH_IMAGE may be an
 # absolute URL, a root-relative path, or a path relative to SITEURL.
-SITE_DESCRIPTION: Optional[str] = None
-OPEN_GRAPH_IMAGE: Optional[str] = None
+SITE_DESCRIPTION: str | None = None
+OPEN_GRAPH_IMAGE: str | None = None
 
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -51,7 +50,7 @@ WEBASSETS_CONFIG = [
 ]
 
 # LOCAL_SCSS: Optional[str] = os.path.join(os.getcwd(), "static", "css", "style.scss")
-LOCAL_SCSS: Optional[str] = None
+LOCAL_SCSS: str | None = None
 path: Path = Path.cwd() / "static" / "css" / "style.scss"
 if path.exists():
     LOCAL_SCSS = str(path)
