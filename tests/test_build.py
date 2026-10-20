@@ -32,6 +32,21 @@ PAGE_PATHS = ["pages"]
 TEMPLATE_PAGES = {"search.html": "search/index.html"}
 """
 
+ANALYTICS_PELICAN_CONF = """from voltaire.pelican import *
+
+GA4_MEASUREMENT_ID = "G-NEW123"
+GOOGLE_TCF_CONSENT_MODE = True
+AFFILIATE_RULES = [
+    {"domain": "example.org", "network": "example"},
+    {"domain": "shop.example.com", "query_parameter": "ref"},
+]
+"""
+
+LEGACY_ANALYTICS_PELICAN_CONF = """from voltaire.pelican import *
+
+GOOGLE_TAG_ID = "G-LEGACY123"
+"""
+
 
 def test_single_page(shell, tmpdir):
     create_files(
@@ -61,6 +76,52 @@ def test_single_page(shell, tmpdir):
         page.select_one('meta[name="description"]')
     ]
     assert page.select_one('link[rel="canonical"]') is None
+
+
+def test_ga4_and_affiliate_tracking(shell, tmpdir):
+    create_files(
+        structure=[
+            {"tasks.py": {"content": TASKS_PY}},
+            {"pelicanconf.py": {"content": ANALYTICS_PELICAN_CONF}},
+            {"content/page.md": {"content": PAGE_MD}},
+        ],
+        root=tmpdir,
+    )
+
+    result = shell.run("invoke", "build", cwd=tmpdir)
+    pelican_output = result.stdout + result.stderr
+    assert "ERROR" not in pelican_output
+
+    html = shell.run("cat", "output/page/index.html", cwd=tmpdir).stdout
+    assert "gtag/js?id=G-NEW123" in html
+    assert "gtag('config', 'G-NEW123')" in html
+    assert 'window["gtag_enable_tcf_support"] = true' in html
+    assert 'gtag("consent", "default"' in html
+    assert html.index('gtag("consent", "default"') < html.index("gtag/js?id=G-NEW123")
+    assert '"domain": "example.org"' in html
+    assert '"query_parameter": "ref"' in html
+    assert 'link.relList.contains("sponsored")' in html
+    assert 'gtag("event", "affiliate_click", parameters)' in html
+    assert "analytics.js" not in html
+
+
+def test_legacy_google_tag_id_alias(shell, tmpdir):
+    create_files(
+        structure=[
+            {"tasks.py": {"content": TASKS_PY}},
+            {"pelicanconf.py": {"content": LEGACY_ANALYTICS_PELICAN_CONF}},
+            {"content/page.md": {"content": PAGE_MD}},
+        ],
+        root=tmpdir,
+    )
+
+    result = shell.run("invoke", "build", cwd=tmpdir)
+    pelican_output = result.stdout + result.stderr
+    assert "ERROR" not in pelican_output
+
+    html = shell.run("cat", "output/page/index.html", cwd=tmpdir).stdout
+    assert "gtag/js?id=G-LEGACY123" in html
+    assert "gtag('config', 'G-LEGACY123')" in html
 
 
 def test_shared_seo_metadata(shell, tmpdir):
