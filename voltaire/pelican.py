@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 PATH = "content"
 PAGE_PATHS = ["."]
@@ -21,6 +21,14 @@ TIMEZONE = "Europe/London"
 # absolute URL, a root-relative path, or a path relative to SITEURL.
 SITE_DESCRIPTION: Optional[str] = None
 OPEN_GRAPH_IMAGE: Optional[str] = None
+
+# Google Analytics 4. GOOGLE_TAG_ID remains supported as a legacy alias.
+GA4_MEASUREMENT_ID: Optional[str] = None
+AFFILIATE_RULES: List[Dict[str, str]] = []
+# Enable when a certified IAB TCF CMP supplies consent choices. This sets
+# denied regional defaults before Google tags load and enables Google's TCF
+# integration; it does not itself provide a consent banner or CMP.
+GOOGLE_TCF_CONSENT_MODE = False
 
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None

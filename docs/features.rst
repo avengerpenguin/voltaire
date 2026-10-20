@@ -6,49 +6,88 @@ Plantuml
 
 Voltaire has ``plantuml_markdown`` enabled by default so any markdown file with ``plantuml`` code blocks will have them automatically replaced by SVGs.
 
-Google Analytics
-----------------
-
-To add Google Analytics to your site, go through the usual steps in the Google Analytics interface and when you are given a snippet like:
-
-.. code-block:: javascript
-
-    <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', '<YOUR_GOOGLE_ANALYTICS_ID>', 'auto');
-    ga('send', 'pageview');
-    </script>
-
-Get the ID they give for ``<YOUR_GOOGLE_ANALYTICS_ID>`` above and add it to your ``publishconf.py`` (so it's only added in published builds) like this:
-
-.. code-block:: python
-
-   GOOGLE_ANALYTICS_ID = "YOUR ID"
-
-
-Google Tag Manager
+Google Analytics 4
 ------------------
 
-Similar to above, if you get a snippet from Google like:
-
-.. code-block:: javascript
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GOOGLE_TAG_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GOOGLE_TAG_ID');
-    </script>
-
-You can add this to ``publishconfig.py`` as:
+Add the ``G-`` measurement ID from your Google Analytics 4 web data stream to
+``publishconf.py`` so analytics is only included in published builds:
 
 .. code-block:: python
 
-   GOOGLE_TAG_ID = "My tag ID"
+   GA4_MEASUREMENT_ID = "G-XXXXXXXXXX"
+
+Voltaire loads the Google tag and configures the supplied GA4 measurement ID.
+The older setting name ``GOOGLE_TAG_ID`` remains supported as a compatibility
+alias, but new sites should use ``GA4_MEASUREMENT_ID``. A ``G-`` measurement ID
+is not a Google Tag Manager container ID; Tag Manager IDs start with ``GTM-``.
+
+Universal Analytics ``UA-`` properties and the old ``GOOGLE_ANALYTICS_ID``
+setting are not supported because Universal Analytics no longer processes
+data.
+
+Outbound and affiliate links
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GA4 Enhanced Measurement can record ordinary outbound links as the standard
+``click`` event. Enable outbound click measurement in the web data stream; do
+not mark that broad event as a key event unless every outbound link should be
+counted as a conversion.
+
+Voltaire emits a separate ``affiliate_click`` event when a link has
+``rel="sponsored"`` or matches an ``AFFILIATE_RULES`` entry. For example:
+
+.. code-block:: html
+
+   <a href="https://merchant.example/product" rel="sponsored">Buy it</a>
+
+Rules can identify existing affiliate URLs by domain and, where needed, require
+a query parameter:
+
+.. code-block:: python
+
+   AFFILIATE_RULES = [
+       {
+           "domain": "amazon.co.uk",
+           "query_parameter": "tag",
+           "network": "amazon",
+       },
+       {"domain": "awin1.com", "network": "awin"},
+   ]
+
+Domain rules match the named domain and its subdomains. ``query_parameter`` and
+``network`` are optional. A sponsored link can provide a network without a rule
+using ``data-affiliate-network="amazon"``.
+
+The event contains ``link_url``, ``link_domain`` and ``link_text``, plus
+``affiliate_network`` when known. Mark ``affiliate_click`` as a key event in
+each applicable GA4 property, then test it with Realtime or DebugView.
+
+Consent
+~~~~~~~
+
+Voltaire does not supply a consent banner or consent management platform. Site
+owners are responsible for integrating an appropriate CMP where consent is
+required. A Consent Mode default alone is not a consent interface.
+
+When a certified CMP implements the IAB Transparency and Consent Framework,
+enable Voltaire's TCF-aware Google Consent Mode integration in
+``publishconf.py``:
+
+.. code-block:: python
+
+   GOOGLE_TCF_CONSENT_MODE = True
+
+This enables Google's TCF support and, before any Google tag loads, sets Consent
+Mode v2 defaults to ``denied`` for the EEA, UK and Switzerland. The CMP must
+then collect the visitor's choice and expose a valid TCF consent signal. Do not
+enable this setting as a substitute for installing and publishing the CMP.
+
+Sites serving AdSense ads to visitors in those regions must use a
+Google-certified CMP integrated with TCF. This can be Google's Privacy &
+messaging CMP configured in AdSense or another certified CMP. Confirm that the
+message is published for every relevant domain and that consent choices reach
+both AdSense and GA4. Validate the default and update signals with Tag Assistant
+and verify the CMP's ``__tcfapi`` in a browser.
 
 
 Custom CSS Styles
