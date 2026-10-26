@@ -1,7 +1,7 @@
 exclude: '^$|venv|.direnv|.obsidian'
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -11,7 +11,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.12
+    rev: v0.17.2
     hooks:
       - id: ruff-check
         types_or: [ python, pyi, jupyter, pyproject ]
@@ -19,7 +19,7 @@ repos:
       - id: ruff-format
         types_or: [ python, pyi, jupyter ]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+    rev: v3.22.0
     hooks:
       - id: pyupgrade
   - repo: https://github.com/pre-commit/pygrep-hooks

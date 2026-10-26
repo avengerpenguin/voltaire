@@ -2,7 +2,6 @@ import os
 import re
 import tempfile
 from subprocess import PIPE, Popen
-from typing import List
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor
@@ -51,12 +50,12 @@ def generate_image(mermaid_code: str) -> str:
             return svg_string
         else:
             raise RuntimeError(
-                f"Error calling mermaid: {str(err)}\nTemp files: {tf.name} and {name}\nCommand: {' '.join(cmdline)}"
+                f"Error calling mermaid: {err!s}\nTemp files: {tf.name} and {name}\nCommand: {' '.join(cmdline)}"
             )
 
 
 class MermaidProcessor(Preprocessor):
-    def run(self, lines: List[str]) -> List[str]:
+    def run(self, lines: list[str]) -> list[str]:
         def gen():
             looking_for_mermaids = True
             mermaid_code = ""
