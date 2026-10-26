@@ -13,7 +13,7 @@ pyparsing==3.3.3
 pytz==2026.5
 requests==2.34.2
 snowballstemmer==3.1.1
-Sphinx==9.1.1
+Sphinx==9.2.0
 sphinx-rtd-theme==3.1.0
 sphinxcontrib-applehelp==2.0.0
 sphinxcontrib-devhelp==2.0.0
