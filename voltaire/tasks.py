@@ -31,7 +31,7 @@ def publish(c, domain=None):
     """Build local version of site"""
     c.run("npm install --save sass")
     pelican_main(["-s", PUBLISH_FILE_BASE, "--output", "dist"])
-    commit_message = "'Publish site on {}'".format(datetime.date.today().isoformat())
+    commit_message = f"'Publish site on {datetime.date.today().isoformat()}'"
 
     if domain:
         with open("dist/CNAME", "w") as f:
