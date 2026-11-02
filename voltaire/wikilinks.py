@@ -1,5 +1,5 @@
 import re
-from typing import Match
+from re import Match
 
 from pelican import signals
 from pelican.contents import Content

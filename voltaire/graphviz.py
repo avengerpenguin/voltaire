@@ -1,5 +1,4 @@
 import re
-from typing import List
 
 import graphviz
 from markdown.extensions import Extension
@@ -22,7 +21,7 @@ def generate_image(dot_code: str) -> str:
 
 
 class GraphvizProcessor(Preprocessor):
-    def run(self, lines: List[str]) -> List[str]:
+    def run(self, lines: list[str]) -> list[str]:
         def gen():
             looking_for_dots = True
             dot_code = ""
