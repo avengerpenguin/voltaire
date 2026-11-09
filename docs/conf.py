@@ -1,5 +1,4 @@
 from importlib.metadata import version as v
-from typing import List
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -18,10 +17,10 @@ version = ".".join(release.split(".")[:2])
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions: List[str] = []
+extensions: list[str] = []
 
 templates_path = ["_templates"]
-exclude_patterns: List[str] = []
+exclude_patterns: list[str] = []
 
 
 # -- Options for HTML output -------------------------------------------------
