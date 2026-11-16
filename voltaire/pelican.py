@@ -1,11 +1,10 @@
 import os
 from pathlib import Path
-from typing import Dict, List, Optional
 
 PATH = "content"
 PAGE_PATHS = ["."]
 ARTICLE_PATHS = ["posts"]
-STATIC_PATHS: List[str] = []
+STATIC_PATHS: list[str] = []
 
 SLUGIFY_SOURCE = "basename"
 
@@ -19,12 +18,12 @@ TIMEZONE = "Europe/London"
 # Shared metadata defaults. Sites can set these to provide a concise fallback
 # description and a default social-sharing image. OPEN_GRAPH_IMAGE may be an
 # absolute URL, a root-relative path, or a path relative to SITEURL.
-SITE_DESCRIPTION: Optional[str] = None
-OPEN_GRAPH_IMAGE: Optional[str] = None
+SITE_DESCRIPTION: str | None = None
+OPEN_GRAPH_IMAGE: str | None = None
 
 # Google Analytics 4. GOOGLE_TAG_ID remains supported as a legacy alias.
-GA4_MEASUREMENT_ID: Optional[str] = None
-AFFILIATE_RULES: List[Dict[str, str]] = []
+GA4_MEASUREMENT_ID: str | None = None
+AFFILIATE_RULES: list[dict[str, str]] = []
 # Enable when a certified IAB TCF CMP supplies consent choices. This sets
 # denied regional defaults before Google tags load and enables Google's TCF
 # integration; it does not itself provide a consent banner or CMP.
@@ -59,7 +58,7 @@ WEBASSETS_CONFIG = [
 ]
 
 # LOCAL_SCSS: Optional[str] = os.path.join(os.getcwd(), "static", "css", "style.scss")
-LOCAL_SCSS: Optional[str] = None
+LOCAL_SCSS: str | None = None
 path: Path = Path.cwd() / "static" / "css" / "style.scss"
 if path.exists():
     LOCAL_SCSS = str(path)
